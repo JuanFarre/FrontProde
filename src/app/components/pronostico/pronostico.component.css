@@ -1,0 +1,434 @@
+/* Panel principal */
+.panel-pronosticos {
+  max-width: 900px;
+  margin: 32px auto;
+  background: rgba(255,255,255,0.15);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  padding: 2.5rem 2.5rem;
+  transition: box-shadow 0.2s;
+}
+
+/* Estilo para mensaje de alerta */
+.mensaje-alerta {
+  display: flex;
+  align-items: center;
+  background-color: #ffebee;
+  color: #d32f2f;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 16px 0 20px 0;
+  border-left: 4px solid #d32f2f;
+  font-weight: 500;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mensaje-icono {
+  margin-right: 10px;
+  color: #d32f2f;
+}
+
+/* Estilos para fecha empezada */
+.fecha-empezada {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.fecha-empezada .prode-radio-group {
+  opacity: 0.5;
+}
+
+.mensaje-fecha {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-left: 3px solid currentColor;
+  font-size: 14px;
+  margin-top: 12px;
+  font-weight: 500;
+}
+.panel-pronosticos:hover {
+  box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.25);
+}
+.prode-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.prode-header h1, .prode-header h2, .prode-header h3 {
+  text-align: center;
+  margin: 0.5rem 0;
+}
+.prode-header h1 {
+  font-size: 2.5rem;
+  color: #1976d2;
+  margin-bottom: 0;
+  letter-spacing: 2px;
+}
+.prode-header h2 {
+  font-size: 1.3rem;
+  color: #333;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+.prode-header h3 {
+  font-size: 1.1rem;
+  color: #1976d2;
+  margin: 0 0 16px 0;
+  font-weight: 600;
+}
+
+.prode-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* --- OPCIÓN 3: TABLA CON BORDES Y SEPARADORES --- */
+.prode-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  box-shadow: 0 2px 16px 0 #0001;
+  border-radius: 0;
+}
+.prode-table th {
+  background: #f3f4f7;
+  color: #1976d2;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #d1d5db;
+  border-top: 1px solid #e0e0e0;
+  padding: 0.9rem 0.5rem;
+}
+.prode-table td {
+  color: #222;
+  font-size: 1rem;
+  padding: 0.7rem 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
+  background: #fff;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.prode-table tr:nth-child(even) td {
+  background: #f7fafd;
+}
+.prode-table tr:hover td {
+  background: #e3f2fd;
+  box-shadow: 0 2px 12px 0 #1976d233;
+}
+.prode-table tr {
+  border-radius: 0;
+}
+
+/* Radio buttons */
+mat-radio-group, .prode-radio-group {
+  background: transparent;
+  border-radius: 8px;
+  padding: 2px 0;
+}
+mat-radio-button {
+  color: #1976d2 !important;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: background 0.2s, color 0.2s;
+}
+mat-radio-button.mat-radio-checked {
+  color: #fff !important;
+  background: #1976d2 !important;
+}
+mat-radio-button .mat-radio-label-content {
+  color: inherit !important;
+}
+.prode-radio-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* Animar las selecciones de radio buttons */
+.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #1976d2 !important;
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.mat-radio-checked .mat-radio-inner-circle {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Select y label */
+mat-form-field, .mat-form-field {
+  color: #1976d2 !important;
+}
+.mat-form-field-label, mat-label {
+  color: #1976d2 !important;
+  font-weight: 600;
+}
+.mat-select-value, .mat-select-arrow {
+  color: #1976d2 !important;
+}
+.mat-option {
+  background: #fff !important;
+  color: #1976d2 !important;
+}
+.mat-option.mat-selected {
+  background: #e3f2fd !important;
+  color: #1976d2 !important;
+}
+
+button[mat-raised-button] {
+  min-width: 160px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.mat-list .item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.pronostico-nombre {
+  font-size: 1rem;
+  color: #333;
+}
+
+.acciones button {
+  margin-left: 8px;
+}
+
+.prode-form button[type="button"] {
+  background: linear-gradient(90deg, #1976d2 0%, #3ec6fd 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 18px 0 #1976d233;
+  border: none;
+  border-radius: 30px;
+  padding: 0.95rem 2.2rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+.prode-form button[type="button"]:hover {
+  background: linear-gradient(90deg, #003c8f 0%, #00b8d4 100%);
+  box-shadow: 0 8px 24px 0 rgba(0, 94, 234, 0.18);
+  transform: translateY(-2px) scale(1.03);
+}
+.prode-form button[type="button"]:active {
+  transform: scale(0.97);
+}
+
+/* --- DARK MODE CONTRASTE Y VISIBILIDAD --- */
+
+/* Select y label */
+mat-form-field, .mat-form-field {
+  color: #e3eafc !important;
+}
+.mat-form-field-label, mat-label {
+  color: #b3c7e6 !important;
+  text-shadow: 0 1px 2px #111a;
+  font-weight: 600;
+}
+.mat-select-value, .mat-select-arrow {
+  color: #e3eafc !important;
+}
+.mat-option {
+  background: #23272f !important;
+  color: #e3eafc !important;
+}
+.mat-option.mat-selected {
+  background: #1976d2 !important;
+  color: #fff !important;
+}
+
+/* Radio buttons */
+mat-radio-group, .prode-radio-group {
+  background: transparent;
+  border-radius: 8px;
+  padding: 2px 0;
+}
+mat-radio-button {
+  color: #e3eafc !important;
+  background: #23272f;
+  border-radius: 6px;
+  padding: 0 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: background 0.2s, color 0.2s;
+}
+mat-radio-button.mat-radio-checked {
+  color: #fff !important;
+  background: #1976d2 !important;
+  box-shadow: 0 2px 8px #1976d255;
+}
+mat-radio-button .mat-radio-label-content {
+  color: inherit !important;
+}
+
+/* Inputs y textos de tabla */
+.prode-table th, .prode-table td {
+  color: #e3eafc !important;
+  text-shadow: 0 1px 2px #111a;
+}
+.prode-table th {
+  background: #23272f !important;
+  color: #fff !important;
+  border-bottom: 2px solid #1976d2;
+}
+.prode-table td {
+  background: #23272f !important;
+  border-bottom: 1px solid #353b48;
+}
+.prode-table tr:hover td {
+  background: #1976d2 !important;
+  color: #fff !important;
+}
+
+/* Estilos para los escudos de equipos */
+.equipo-celda {
+  min-width: 150px;
+}
+
+.equipo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.escudo-partido {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: #1e222b;
+  padding: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Botón guardar */
+.prode-form button[type="button"] {
+  background: linear-gradient(90deg, #1976d2 0%, #3ec6fd 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 18px 0 #1976d233;
+}
+
+/* Ajuste para lista de pronósticos */
+.pronostico-nombre {
+  color: #e3eafc !important;
+}
+
+/* Opcional: sombra para mejorar legibilidad sobre fondo translúcido */
+.panel-pronosticos, .prode-table, mat-form-field, mat-select, mat-radio-group {
+  box-shadow: 0 2px 16px 0 #0005;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: center;
+}
+
+.submit-button {
+  padding: 8px 24px;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  border-radius: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.submit-button mat-icon {
+  margin-right: 8px;
+}
+
+.submit-button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: linear-gradient(90deg, #9e9e9e 0%, #bdbdbd 100%) !important;
+  box-shadow: none !important;
+}
+
+.submit-button[disabled]:hover {
+  transform: none;
+  box-shadow: none !important;
+}
+
+/* Filas de partidos sin pronóstico */
+.fila-incompleta {
+  background-color: rgba(255, 236, 179, 0.8) !important;
+  animation: pulsar 2s infinite;
+  border-left: 4px solid #ff9800 !important;
+}
+
+@keyframes pulsar {
+  0% { background-color: rgba(255, 244, 229, 0.5); }
+  50% { background-color: rgba(255, 236, 179, 0.8); }
+  100% { background-color: rgba(255, 244, 229, 0.5); }
+}
+
+/* Mensaje de "No hay partidos disponibles" */
+.no-partidos-mensaje {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e8f4fd;
+  padding: 24px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border: 1px dashed #90caf9;
+  color: #0d47a1;
+}
+
+.no-partidos-mensaje mat-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  margin-bottom: 16px;
+  color: #1976d2;
+}
+
+.no-partidos-mensaje p {
+  font-size: 16px;
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+}
+
+@media (max-width: 700px) {
+  .panel-pronosticos {
+    padding: 12px 2px;
+  }
+  .prode-table th, .prode-table td {
+    font-size: 0.9rem;
+    padding: 6px 2px;
+  }
+  button[mat-raised-button] {
+    min-width: 100px;
+    font-size: 0.9rem;
+  }
+}

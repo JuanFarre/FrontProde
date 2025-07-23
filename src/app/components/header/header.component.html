@@ -1,0 +1,25 @@
+<header class="header">
+  <div class="logo-nav">
+    <img src="assets/fondo-futbol.png" alt="Logo" class="logo">
+    <span class="app-title">ProdeApp</span>
+    <nav class="nav" *ngIf="isLoggedIn">
+      <ng-container *ngIf="rol === 'USER'; else adminLinks">
+        <a routerLink="/pronosticos" routerLinkActive="active">Pronosticos</a>
+        <a routerLink="/mis-tickets" routerLinkActive="active">Mis Tickets</a>
+        <a routerLink="/ranking" routerLinkActive="active">Ranking</a>
+      </ng-container>
+      <ng-template #adminLinks>
+        <a routerLink="/torneos" routerLinkActive="active">Torneos</a>
+        <a routerLink="/fechas" routerLinkActive="active">Fechas</a>
+        <a routerLink="/equipos" routerLinkActive="active">Equipos</a>
+        <a routerLink="/partidos" routerLinkActive="active">Partidos</a>
+        <a routerLink="/pronosticos" routerLinkActive="active">Pronosticos</a>
+        <a routerLink="/mis-tickets" routerLinkActive="active">Mis Tickets</a>
+        <a routerLink="/ranking" routerLinkActive="active">Ranking</a>
+      </ng-template>
+      <span *ngIf="isLoggedIn" class="user-info">👤 {{ username }}</span>
+      <button *ngIf="isLoggedIn" (click)="logout()" class="logout-btn">Logout</button>
+    </nav>
+  </div>
+</header>
+

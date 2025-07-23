@@ -1,0 +1,41 @@
+<mat-card class="panel-torneos">
+  <h2 mat-card-title>PANEL DE TORNEOS</h2>
+
+  <form [formGroup]="torneoForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Año</mat-label>
+      <input matInput formControlName="anio" type="number" />
+    </mat-form-field>
+    <div style="display: flex; gap: 8px;">
+      <button mat-raised-button color="primary" type="submit" [disabled]="torneoForm.invalid">
+        {{ editando ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button *ngIf="editando" mat-raised-button color="warn" type="button" (click)="cancelarEdicion()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+  <div *ngIf="mensaje" style="margin-bottom: 16px;">{{ mensaje }}</div>
+
+  <mat-divider></mat-divider>
+  <h3>Lista de torneos</h3>
+  <mat-list>
+    <mat-list-item *ngFor="let torneo of torneos">
+      <div class="item-row">
+        <span class="torneo-nombre">{{ torneo.nombre }} ({{ torneo.anio }})</span>
+        <span class="acciones">
+          <button mat-icon-button color="primary" (click)="editarTorneo(torneo)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="eliminarTorneo(torneo.id, torneo.nombre)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</mat-card>

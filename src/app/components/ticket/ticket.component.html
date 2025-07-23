@@ -1,0 +1,81 @@
+<div class="container">
+  <h2 class="title">Mis Tickets</h2>
+
+  <div class="actions-bar">
+    <button (click)="cargarDatos()" class="refresh-btn">
+      <i class="material-icons">refresh</i> Actualizar
+    </button>
+  </div>
+
+  <div *ngIf="cargando" class="loading">
+    <p>Cargando tickets...</p>
+  </div>
+
+  <div *ngIf="mensaje" class="mensaje" [ngClass]="{'error': mensaje.includes('Error')}">
+    {{ mensaje }}
+  </div>
+
+  <div *ngIf="!cargando && tickets.length === 0" class="no-tickets">
+    <p>No has creado ningún ticket todavía.</p>
+    <button routerLink="/pronosticos" class="crear-btn">Crear un nuevo ticket</button>
+  </div>
+  <div *ngIf="!cargando && tickets.length > 0" class="tickets-container">
+    <div *ngFor="let ticket of tickets" class="ticket-card" [ngClass]="{'ticket-active': ticket.mostrarDetalles}">
+      <div class="ticket-header">
+        <div class="ticket-main-info">
+          <h3>Ticket #{{ ticket.id }} - {{ getNombreFecha(ticket.fechaId) }}</h3>
+          <div class="ticket-info">
+            <p><strong>Creado:</strong> {{ ticket.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</p>
+            <p><strong>Puntos:</strong> {{ calcularPuntosTotales(ticket) }}</p>
+            <p><strong>Estado:</strong> <span [ngClass]="{'completado': calcularPuntosTotales(ticket) > 0, 'pendiente': calcularPuntosTotales(ticket) === 0}">
+              {{ calcularPuntosTotales(ticket) > 0 ? 'Completado' : 'Pendiente' }}
+            </span></p>
+          </div>
+        </div>
+        <div class="ticket-actions">
+          <button class="view-btn" (click)="toggleDetalles(ticket)">
+            {{ ticket.mostrarDetalles ? 'Ocultar detalles' : 'Ver detalles' }}
+            <i class="material-icons">{{ ticket.mostrarDetalles ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</i>
+          </button>
+          <button class="delete-btn" (click)="eliminarTicket(ticket.id!)">Eliminar</button>
+        </div>
+      </div>      
+      <div class="pronosticos-container" *ngIf="ticket.mostrarDetalles" [@detallesAnimation]>
+        <h4>Pronósticos realizados</h4>
+        <table class="pronosticos-table">
+          <thead>
+            <tr>
+              <th>Partido</th>
+              <th class="text-center">Pronóstico</th>
+              <th class="text-center">Resultado</th>
+              <th class="text-center">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pronostico of ticket.pronosticos">
+              <td class="partido-cell">
+                <div class="equipo-match">
+                  <img [src]="getEquipoLocal(pronostico.partidoId)?.escudoUrl || 'assets/img/escudo-default.svg'" 
+                       class="escudo-mini" alt="Local"
+                       onerror="this.src='assets/img/escudo-default.svg'; this.onerror=null;">
+                  <span>vs</span>
+                  <img [src]="getEquipoVisitante(pronostico.partidoId)?.escudoUrl || 'assets/img/escudo-default.svg'" 
+                       class="escudo-mini" alt="Visitante"
+                       onerror="this.src='assets/img/escudo-default.svg'; this.onerror=null;">
+                </div>
+                <div class="equipos-nombres">
+                  {{ getPartidoInfo(pronostico.partidoId) }}
+                </div>
+              </td>
+              <td class="text-center">{{ formatearResultado(pronostico.resultadoPronosticado) }}</td>
+              <td class="text-center">{{ getResultadoPartido(pronostico.partidoId) }}</td>
+              <td class="text-center"><span [ngClass]="getEstadoClase(pronostico)">
+                {{ getEstadoTexto(pronostico) }}
+              </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<mat-card class="panel-fechas">
+  <h2 mat-card-title>PANEL DE FECHAS</h2>
+
+  <form *ngIf="torneos.length > 0" [formGroup]="fechaForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Torneo</mat-label>
+      <mat-select formControlName="torneo">
+        <mat-select-trigger>
+          {{ fechaForm.get('torneo')?.value?.nombre || 'Seleccionar torneo' }}
+        </mat-select-trigger>
+        <mat-option *ngFor="let torneo of torneos" [value]="torneo">
+          {{ torneo.nombre }} ({{ torneo.anio }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-checkbox formControlName="empezada" style="margin: 16px 0;">
+      Fecha empezada (no se permiten más pronósticos)
+    </mat-checkbox>
+    
+    <div style="display: flex; gap: 8px;">
+      <button mat-raised-button class="btn-primary" type="submit" [disabled]="fechaForm.invalid">
+        {{ editando ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button *ngIf="editando" mat-raised-button color="warn" type="button" (click)="cancelarEdicion()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+  <div *ngIf="torneos.length === 0" style="text-align:center; margin: 16px;">
+    Cargando torneos...
+  </div>
+  <div *ngIf="mensaje" style="margin-bottom: 16px;">{{ mensaje }}</div>
+
+  <mat-divider></mat-divider>
+  <h3>Lista de fechas</h3>
+  <mat-list>
+    <mat-list-item *ngFor="let fecha of fechas">
+      <div class="item-row">
+        <div class="fecha-info">
+          <span class="fecha-nombre">{{ fecha.nombre }}</span>
+          <span class="estado-badge" 
+                [class.estado-disponible]="!fecha.empezada"
+                [class.estado-empezada]="fecha.empezada">
+            {{ fecha.empezada ? 'Empezada' : 'Disponible' }}
+          </span>
+        </div>
+        <div class="acciones">
+          <button mat-button class="btn-edit" (click)="editarFecha(fecha)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button class="btn-delete" (click)="eliminarFecha(fecha.id, fecha.nombre)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</mat-card>

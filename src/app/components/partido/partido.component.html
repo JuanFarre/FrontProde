@@ -1,0 +1,120 @@
+<mat-card class="panel-partidos">
+  <h2 mat-card-title>PANEL DE PARTIDOS</h2>
+
+  <form [formGroup]="partidoForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha</mat-label>
+      <mat-select formControlName="fechaId">
+        <mat-option *ngFor="let fecha of fechas" [value]="fecha.id">
+          {{ fecha.nombre }}
+          <span *ngIf="fecha.empezada" style="color: #ef4444; font-size: 11px; margin-left: 4px;">
+            (Empezada)
+          </span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Equipo Local</mat-label>
+      <mat-select formControlName="equipoLocalId">
+        <mat-option *ngFor="let equipo of equipos" [value]="equipo.id">
+          {{ equipo.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Equipo Visitante</mat-label>
+      <mat-select formControlName="equipoVisitanteId">
+        <mat-option *ngFor="let equipo of equipos" [value]="equipo.id">
+          {{ equipo.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Estado del Partido</mat-label>
+      <mat-select formControlName="estado" (selectionChange)="onEstadoChange($event.value)">
+        <mat-option *ngFor="let estado of estadosPartido" [value]="estado.valor">
+          {{ estado.texto }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" *ngIf="partidoForm.get('estado')?.value !== 'no-empezado'">
+      <mat-label>Goles Local</mat-label>
+      <input matInput type="number" formControlName="golesLocal" min="0" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" *ngIf="partidoForm.get('estado')?.value !== 'no-empezado'">
+      <mat-label>Goles Visitante</mat-label>
+      <input matInput type="number" formControlName="golesVisitante" min="0" />
+    </mat-form-field>
+    
+    <!-- Campo oculto para mantener compatibilidad con el backend -->
+    <input type="hidden" formControlName="finalizado">
+    
+    <div style="display: flex; gap: 8px; margin-top: 16px;">
+      <button mat-raised-button color="primary" type="submit" [disabled]="partidoForm.invalid">
+        {{ editando ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button *ngIf="editando" mat-raised-button color="warn" type="button" (click)="cancelarEdicion()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="mensaje" style="margin-bottom: 16px;">{{ mensaje }}</div>
+
+  <mat-divider></mat-divider>
+  <h3>Lista de partidos</h3>
+  
+  <div class="filtro-container">
+    <h4>Filtrar partidos</h4>
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrar por fecha</mat-label>
+      <mat-select [(ngModel)]="fechaFiltro" (selectionChange)="filtrarPartidos()">
+        <mat-option value="">Todas las fechas</mat-option>
+        <mat-option *ngFor="let fecha of fechas" [value]="fecha.id">
+          {{ fecha.nombre }}
+          <span *ngIf="fecha.empezada" style="color: #f59e0b; font-size: 11px; margin-left: 4px;">
+            (Empezada)
+          </span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <!-- Mensaje de estado de la fecha seleccionada -->
+    <div *ngIf="fechaFiltro" class="mensaje-fecha" 
+         [style.color]="puedeHacerPronosticos(+fechaFiltro) ? '#10b981' : '#ef4444'"
+         style="margin-top: 12px; padding: 8px 12px; border-radius: 6px; background-color: rgba(0,0,0,0.05); font-size: 14px; font-weight: 500;">
+      {{ getMensajeFecha(+fechaFiltro) }}
+    </div>
+  </div>
+  
+  <div class="partidos-lista">
+    <div *ngFor="let partido of partidosFiltrados" class="partido-item">
+      <div class="partido-info">
+        <div class="partido-equipos">
+          {{ getNombreEquipo(partido.equipoLocalId) }} 
+          <span *ngIf="getEstadoPartido(partido) !== 'No Empezado'" class="resultado">
+            {{ partido.golesLocal }} - {{ partido.golesVisitante }}
+          </span>
+          <span *ngIf="getEstadoPartido(partido) === 'No Empezado'" class="vs">vs</span>
+          {{ getNombreEquipo(partido.equipoVisitanteId) }}
+        </div>
+        <div class="partido-meta">
+          <small class="fecha">{{ getNombreFecha(partido.fechaId) }}</small>
+          <span [class]="getEstadoClase(partido)" class="estado-badge">
+            {{ getEstadoPartido(partido) }}
+          </span>
+        </div>
+      </div>
+      <div class="partido-acciones">
+        <button mat-button class="btn-edit" (click)="editarPartido(partido)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button class="btn-delete" (click)="eliminarPartido(partido.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>

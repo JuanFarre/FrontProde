@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Editar {{ data.titulo }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="entidadForm">
+    <ng-container *ngFor="let campo of data.campos">
+      <ng-container *ngIf="campo.tipo === 'select'; else inputField">
+        <mat-form-field appearance="outline" style="width:100%;">
+          <mat-label>{{ campo.label }}</mat-label>
+          <mat-select [formControlName]="campo.nombre">
+            <mat-select-trigger>
+              {{ entidadForm.get(campo.nombre)?.value?.nombre || 'Seleccionar' }}
+            </mat-select-trigger>
+            <mat-option *ngFor="let opcion of campo.opciones" [value]="opcion">
+              {{ opcion.nombre }}{{ opcion.anio ? ' (' + opcion.anio + ')' : '' }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+      <ng-template #inputField>
+        <mat-form-field appearance="outline" style="width:100%;">
+          <mat-label>{{ campo.label }}</mat-label>
+          <input matInput [formControlName]="campo.nombre" [type]="campo.tipo || 'text'" />
+        </mat-form-field>
+      </ng-template>
+    </ng-container>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()" [disabled]="entidadForm.invalid">Guardar</button>
+</mat-dialog-actions>

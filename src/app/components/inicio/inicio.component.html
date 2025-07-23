@@ -1,0 +1,57 @@
+<div class="inicio-header">
+  <button [class.active]="mostrarLogin" (click)="mostrarFormulario('login')">
+    Iniciar Sesión
+  </button>
+  <button [class.active]="mostrarRegistro" (click)="mostrarFormulario('registro')">
+    Registrate
+  </button>
+</div>
+<div class="inicio-container">
+  <!-- Mensaje de verificación de email -->
+  <div *ngIf="needsVerification" class="card verification-card">
+    <h2>Verificación de Email Requerida</h2>
+    <div class="verification-icon">📧</div>
+    <p>¡Gracias por registrarte! Hemos intentado enviar un correo electrónico a la dirección que proporcionaste.</p>
+    <p *ngIf="!registroError">Por favor, revisa tu bandeja de entrada y haz clic en el enlace de verificación para activar tu cuenta.</p>
+    <p *ngIf="registroError" class="verification-error">{{registroError}}</p>
+    <p class="verification-note">Si no encuentras el correo, revisa tu carpeta de spam o correo no deseado o contacta al administrador.</p>
+    <button (click)="mostrarFormulario('login')" class="verification-button">Ir al inicio de sesión</button>
+  </div>
+
+  <div *ngIf="mostrarLogin && !needsVerification" class="card login-card">
+    <h2>Iniciar Sesión</h2>
+    <form #loginForm="ngForm" (ngSubmit)="loginUsuario(loginForm)">
+      <label for="login-username">Usuario</label>
+      <input id="login-username" name="username" ngModel required placeholder="Nombre de usuario">
+      <label for="login-password">Contraseña</label>
+      <input id="login-password" name="password" ngModel required type="password" placeholder="Contraseña">
+      <button type="submit" [disabled]="loadingLogin || loginForm.invalid">
+        <span *ngIf="loadingLogin" class="loader"></span>
+        Ingresar
+      </button>
+      <div *ngIf="loginMsg" class="success-message">🎉 {{loginMsg}}</div>
+      <div *ngIf="loginError" class="error-message">❌ {{loginError}}</div>
+    </form>
+  </div>
+  <div *ngIf="mostrarRegistro && !needsVerification" class="card register-card">
+    <h2>Registrarse</h2>
+    <form #registroForm="ngForm" (ngSubmit)="registrarUsuario(registroForm)">
+      <label for="register-nombre">Nombre</label>
+      <input id="register-nombre" name="nombre" ngModel required placeholder="Tu nombre">
+      <label for="register-username">Usuario</label>
+      <input id="register-username" name="username" ngModel required placeholder="Nombre de usuario">
+      <label for="register-email">Email</label>
+      <input id="register-email" name="email" ngModel required type="email" placeholder="Tu email">
+      <label for="register-password">Contraseña</label>
+      <input id="register-password" name="password" ngModel required type="password" placeholder="Contraseña">
+      <label for="register-confirm">Confirmar Contraseña</label>
+      <input id="register-confirm" name="confirm" ngModel required type="password" placeholder="Repetir contraseña">
+      <button type="submit" [disabled]="loadingRegistro || registroForm.invalid">
+        <span *ngIf="loadingRegistro" class="loader"></span>
+        Crear cuenta
+      </button>
+      <div *ngIf="registroMsg" class="success-message">✅ {{registroMsg}}</div>
+      <div *ngIf="registroError" class="error-message">❌ {{registroError}}</div>
+    </form>
+  </div>
+</div>

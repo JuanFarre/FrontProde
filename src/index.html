@@ -2,12 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>ProdeFront</title>
+  <title>Pronósticos Fútbol Argentino</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  
+  <!-- Favicon principal - usando iconazo.png -->
+  <link rel="icon" type="image/png" href="assets/iconazo.png?v=3">
+  
+  <!-- Favicon tradicional (reemplazado con iconazo.png) -->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?v=3">
+  
+  <!-- Favicons alternativos -->
+  <!-- <link rel="icon" type="image/svg+xml" href="assets/favicon-football.svg"> -->
+  <!-- <link rel="icon" type="image/svg+xml" href="assets/favicon-alt.svg"> -->
+  
+  <!-- Favicon para Apple -->
+  <link rel="apple-touch-icon" href="assets/iconazo.png?v=3">
+  
+  <!-- Meta tag para forzar recarga de favicon -->
+  <meta name="theme-color" content="#1976d2">
+  
+  <!-- Favicons adicionales para mejor compatibilidad -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/iconazo.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/iconazo.png?v=2">
+  
+  <!-- Para Internet Explorer -->
+  <meta name="msapplication-TileImage" content="assets/iconazo.png?v=2">
+  <meta name="msapplication-TileColor" content="#1976d2">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+<body class="mat-typography">
   <app-root></app-root>
+
+  <!-- Script para forzar actualización de favicon -->
+  <script>
+    // Forzar actualización del favicon eliminando cualquier caché
+    document.addEventListener('DOMContentLoaded', function() {
+      const favicon = document.querySelector('link[rel="icon"]');
+      if (favicon) {
+        const newFavicon = favicon.cloneNode(true);
+        newFavicon.href = 'assets/iconazo.png?v=' + new Date().getTime();
+        favicon.parentNode.replaceChild(newFavicon, favicon);
+      }
+    });
+  </script>
 </body>
 </html>

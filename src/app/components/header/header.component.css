@@ -1,0 +1,56 @@
+.header {
+  background: rgba(20, 20, 20, 0.75); /* Negro translúcido más oscuro */
+  color: #fff;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  backdrop-filter: blur(4px); /* Efecto de desenfoque para más modernidad */
+}
+.logo-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.logo {
+  height: 40px;
+}
+.nav a {
+  color: #fff;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav a.active, .nav a:hover {
+  color: #ffd700;
+}
+.logout-btn {
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  margin-left: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover {
+  background: #c82333;
+}
+.user-info {
+  margin-left: 1.5rem;
+  font-weight: 600;
+  color: #ffd700;
+  font-size: 1.1rem;
+}
+.app-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  margin-left: 1rem;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 8px #00000055;
+}

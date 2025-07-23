@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo redondeado -->
+  <rect width="512" height="512" rx="100" fill="#1976d2" />
+  
+  <!-- Balón minimalista y moderno -->
+  <circle cx="256" cy="256" r="120" fill="white" />
+  <circle cx="256" cy="256" r="120" stroke="#444" stroke-width="6" stroke-opacity="0.6" />
+  
+  <!-- Líneas de balón simplificadas -->
+  <path d="M256 136V376" stroke="#444" stroke-width="6" />
+  <path d="M136 256H376" stroke="#444" stroke-width="6" />
+  <path d="M177 177L335 335" stroke="#444" stroke-width="6" />
+  <path d="M177 335L335 177" stroke="#444" stroke-width="6" />
+  
+  <!-- Círculo central -->
+  <circle cx="256" cy="256" r="30" fill="#444" />
+</svg>

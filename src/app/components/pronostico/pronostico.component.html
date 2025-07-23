@@ -1,0 +1,120 @@
+<mat-card class="panel-pronosticos">
+  <div class="prode-header">
+    <h1>PRODE</h1>
+    <h2>LIGA PROFESIONAL DE FUTBOL 20225</h2>
+  </div>
+
+  <form [formGroup]="pronosticoForm" class="prode-form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha</mat-label>
+      <mat-select [(value)]="fechaSeleccionadaId" (selectionChange)="onFechaChange($event.value)">
+        <mat-option *ngFor="let fecha of fechas" [value]="fecha.id">
+          {{ fecha.nombre }}
+          <span *ngIf="fecha.empezada" style="color: #f59e0b; font-size: 11px; margin-left: 4px;">
+            (Empezada)
+          </span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <!-- Mensaje de estado de la fecha seleccionada -->
+    <div *ngIf="fechaSeleccionadaId" class="mensaje-fecha" 
+         [style.color]="puedeHacerPronosticos(fechaSeleccionadaId) ? '#10b981' : '#ef4444'"
+         style="margin-top: 12px; padding: 8px 12px; border-radius: 6px; background-color: rgba(0,0,0,0.05); font-size: 14px; font-weight: 500;">
+      {{ getMensajeFecha(fechaSeleccionadaId) }}
+    </div>
+
+    <table class="prode-table" *ngIf="partidos && partidos.length > 0" 
+           [class.fecha-empezada]="fechaSeleccionadaId && fechaYaEmpeze(fechaSeleccionadaId)">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Local</th>
+          <th></th>
+          <th>Visitante</th>
+          <th>Pronóstico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let partido of partidos; let i = index" [ngClass]="{'fila-incompleta': partidoRequierePrediction(partido.id!)}">
+          <td>{{ i + 1 }}</td>
+          <td class="equipo-celda">
+            <div class="equipo-wrapper">
+              <img [src]="getEscudoEquipo(partido.equipoLocalId)" 
+                   class="escudo-partido" alt="{{ getNombreEquipo(partido.equipoLocalId) }}"
+                   onerror="this.src='assets/img/escudo-default.svg'; this.onerror=null;">
+              <span>{{ getNombreEquipo(partido.equipoLocalId) }}</span>
+            </div>
+          </td>
+          <td>-</td>
+          <td class="equipo-celda">
+            <div class="equipo-wrapper">
+              <img [src]="getEscudoEquipo(partido.equipoVisitanteId)" 
+                   class="escudo-partido" alt="{{ getNombreEquipo(partido.equipoVisitanteId) }}"
+                   onerror="this.src='assets/img/escudo-default.svg'; this.onerror=null;">
+              <span>{{ getNombreEquipo(partido.equipoVisitanteId) }}</span>
+            </div>
+          </td>
+          <td>
+            <mat-radio-group
+              [value]="pronosticosPorPartido[partido.id!]"
+              (change)="onPronosticoChange(partido.id!, $event.value)"
+              [disabled]="!!(fechaSeleccionadaId && fechaYaEmpeze(fechaSeleccionadaId))"
+              class="prode-radio-group"
+            >
+              <mat-radio-button value="1">1</mat-radio-button>
+              <mat-radio-button value="X">X</mat-radio-button>
+              <mat-radio-button value="2">2</mat-radio-button>
+            </mat-radio-group>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div *ngIf="!partidos || partidos.length === 0" class="no-partidos-mensaje">
+      <mat-icon>info</mat-icon>
+      <p>No hay partidos disponibles para esta fecha.</p>
+    </div>
+
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" type="button" 
+              [disabled]="!partidos || partidos.length === 0 || (fechaSeleccionadaId && fechaYaEmpeze(fechaSeleccionadaId))"
+              (click)="guardarTicket()" 
+              class="submit-button">
+        <mat-icon>check_circle</mat-icon>
+        <span *ngIf="fechaSeleccionadaId && fechaYaEmpeze(fechaSeleccionadaId); else normalText">
+          Fecha empezada - No disponible
+        </span>
+        <ng-template #normalText>Enviar Ticket</ng-template>
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="mensaje" class="mensaje-alerta">
+    <mat-icon class="mensaje-icono">warning</mat-icon>
+    <span>{{ mensaje }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+  <!-- <h3>Lista de pronósticos</h3>
+  <mat-list>
+    <mat-list-item *ngFor="let pronostico of pronosticos">
+      <div class="item-row">
+        <span class="pronostico-nombre">
+          Usuario: {{ getNombreUsuario(pronostico.usuarioId) }} |
+          Partido: {{ getNombrePartido(pronostico.partidoId) }} |
+          Resultado: {{ pronostico.resultadoPronosticado }} |
+          Puntos: {{ pronostico.puntosObtenidos }}
+        </span>
+        <span class="acciones">
+          <button mat-icon-button color="primary" (click)="editarPronostico(pronostico)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="eliminarPronostico(pronostico.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
+      </div>
+    </mat-list-item>
+  </mat-list> -->
+</mat-card>

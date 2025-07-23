@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <h2>Crear Partido</h2>
+  
+    <form (ngSubmit)="crear()" #form="ngForm">
+      <div class="mb-3">
+        <label>Equipo Local ID:</label>
+        <input type="number" [(ngModel)]="partido.equipoLocalId" name="local" class="form-control" required>
+      </div>
+  
+      <div class="mb-3">
+        <label>Equipo Visitante ID:</label>
+        <input type="number" [(ngModel)]="partido.equipoVisitanteId" name="visitante" class="form-control" required>
+      </div>
+  
+      <div class="mb-3">
+        <label>Goles Local:</label>
+        <input type="number" [(ngModel)]="partido.golesLocal" name="golesLocal" class="form-control">
+      </div>
+  
+      <div class="mb-3">
+        <label>Goles Visitante:</label>
+        <input type="number" [(ngModel)]="partido.golesVisitante" name="golesVisitante" class="form-control">
+      </div>
+  
+      <button class="btn btn-primary" type="submit">Crear Partido</button>
+    </form>
+  </div>
+  

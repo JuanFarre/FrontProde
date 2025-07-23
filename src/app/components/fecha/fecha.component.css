@@ -1,0 +1,224 @@
+/* Panel principal */
+.panel-fechas {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 32px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(44,62,80,0.1);
+}
+
+/* Títulos */
+.panel-fechas h2 {
+  text-align: center;
+  margin-bottom: 32px;
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.025em;
+}
+
+.panel-fechas h3 {
+  color: #374151;
+  font-weight: 500;
+  margin: 32px 0 20px 0;
+  font-size: 1.125rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+  text-align: center;
+}
+
+/* Formulario Material */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+form button {
+  min-width: 120px;
+  align-self: flex-start;
+}
+
+/* Botones de acción */
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Mensajes */
+div[ngIf] {
+  margin-bottom: 16px;
+  color: #059669;
+  font-weight: 500;
+  text-align: center;
+  padding: 12px;
+  background: #f0f9f5;
+  border-radius: 8px;
+  border-left: 4px solid #059669;
+}
+
+/* Lista de fechas */
+mat-list {
+  margin-top: 16px;
+  background: transparent;
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  background: #f8fafc;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  padding: 0 16px;
+  transition: all 0.2s ease;
+}
+
+mat-list-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  border-color: #cbd5e1;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Información de la fecha */
+.fecha-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.fecha-nombre {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* Estado de la fecha */
+.estado-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.estado-disponible {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.estado-empezada {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Acciones */
+.acciones {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.acciones button {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.acciones button:hover {
+  background: #e2e8f0;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+.btn-edit {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+.btn-edit:hover {
+  background: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+.btn-delete {
+  background: #fef2f2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.btn-delete:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+/* Íconos Material */
+mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .panel-fechas {
+    margin: 16px;
+    padding: 20px;
+  }
+  
+  .item-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .acciones {
+    align-self: flex-end;
+  }
+}

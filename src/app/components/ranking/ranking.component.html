@@ -1,0 +1,140 @@
+<div class="ranking-container">
+  <h1 class="ranking-title">Ranking de Pronósticos</h1>
+  
+  <div class="ranking-controls">
+    <div class="ranking-tabs">
+      <button 
+        [class.active]="mostrarRankingGeneral" 
+        (click)="cambiarVistaRanking(true)"
+        class="tab-button">
+        Ranking General
+      </button>
+      <button 
+        [class.active]="!mostrarRankingGeneral" 
+        (click)="cambiarVistaRanking(false)"
+        class="tab-button">
+        Ranking por Fecha
+      </button>
+    </div>
+    
+    <div *ngIf="!mostrarRankingGeneral" class="fecha-selector">
+      <label for="fecha">Seleccionar Fecha:</label>
+      <select 
+        id="fecha" 
+        (change)="cambiarFecha($event)" 
+        [disabled]="cargando"
+        class="fecha-select">
+        <option value="">Seleccione una fecha</option>
+        <option *ngFor="let fecha of fechas" [value]="fecha.id">
+          {{ fecha.nombre }}
+        </option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Mensaje de carga o error -->
+  <div *ngIf="cargando" class="loading-spinner"></div>
+  <div *ngIf="mensaje" class="mensaje">{{ mensaje }}</div>
+  
+  <!-- Tabla de Ranking General -->
+  <div *ngIf="mostrarRankingGeneral && !cargando && rankingGeneral.length > 0" class="ranking-table-container">
+    <table class="ranking-table">
+      <thead>
+        <tr>
+          <th>Posición</th>
+          <th>Usuario</th>
+          <th>Puntos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of rankingGeneral" [ngClass]="{'top-position': item.posicion <= 3}">
+          <td>{{ item.posicion }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.puntosTotales }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Tabla de Ranking por Fecha -->
+  <div *ngIf="!mostrarRankingGeneral && !cargando" class="ranking-table-container">
+    <div *ngIf="rankingPorFecha.length === 0" class="mensaje">
+      No hay datos de ranking para esta fecha ({{fechaSeleccionada}})
+    </div>
+    <table *ngIf="rankingPorFecha.length > 0" class="ranking-table">
+      <thead>
+        <tr>
+          <th>Posición</th>
+          <th>Usuario</th>
+          <th>Puntos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of rankingPorFecha">
+          <tr [class.selected]="mostrarDetalle(item.ticketId)" [ngClass]="{'top-position': item.posicion <= 3}">
+            <td>{{ item.posicion }}</td>
+            <td>{{ item.username }}</td>
+            <td>{{ item.puntosTotales }}</td>
+            <td>
+              <button 
+                *ngIf="item.ticketId" 
+                (click)="verDetalle(item)" 
+                class="detalle-button">
+                {{ mostrarDetalle(item.ticketId) ? 'Ocultar Detalle' : 'Ver Detalle' }}
+              </button>
+            </td>
+          </tr>
+          <!-- Fila de detalles -->
+          <tr *ngIf="mostrarDetalle(item.ticketId)" class="detalle-row">
+            <td colspan="4">
+              <div [@detalleAnimation] class="detalle-container">
+                <h3>Pronósticos del Ticket</h3>
+                <div *ngIf="detallePronosticos.length === 0" class="sin-pronosticos">
+                  No hay detalles disponibles
+                </div>
+                <table *ngIf="detallePronosticos.length > 0" class="pronosticos-table">
+                  <thead>
+                    <tr>
+                      <th>Partido</th>
+                      <th class="text-center">Pronóstico</th>
+                      <th class="text-center">Resultado</th>
+                      <th class="text-center">Estado</th>
+                      <th class="text-center">Puntos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let pronostico of detallePronosticos">
+                      <td class="partido-cell">
+                        <div class="equipo-match">
+                          <img [src]="getEquipoLocal(pronostico.partidoId)?.escudoUrl || 'assets/img/escudo-default.svg'" 
+                               class="escudo-mini" alt="Local"
+                               onerror="this.src='assets/img/escudo-default.svg'; this.onerror=null;">
+                          <span>vs</span>
+                          <img [src]="getEquipoVisitante(pronostico.partidoId)?.escudoUrl || 'assets/img/escudo-default.svg'" 
+                               class="escudo-mini" alt="Visitante"
+                               onerror="this.src='assets/img/escudo-default.svg'; this.onerror=null;">
+                        </div>
+                        <div class="equipos-nombres">
+                          {{ getPartidoInfo(pronostico.partidoId) }}
+                        </div>
+                      </td>
+                      <td class="text-center">{{ formatearResultado(pronostico.resultadoPronosticado) }}</td>
+                      <td class="text-center">{{ getResultadoPartido(pronostico.partidoId) }}</td>
+                      <td class="text-center">
+                        <span [ngClass]="getEstadoClase(pronostico)">
+                          {{ getEstadoTexto(pronostico) }}
+                        </span>
+                      </td>
+                      <td class="text-center">{{ pronostico.puntosObtenidos || 0 }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

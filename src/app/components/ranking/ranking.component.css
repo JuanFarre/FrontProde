@@ -1,0 +1,433 @@
+.ranking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.ranking-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 28px;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+/* Controles y pestañas */
+.ranking-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.ranking-tabs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #ecf0f1;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tab-button.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.fecha-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.fecha-select {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  min-width: 200px;
+}
+
+/* Tabla de Ranking */
+.ranking-table-container {
+  overflow-x: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.ranking-table th, 
+.ranking-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.ranking-table th {
+  background-color: #2c3e50;
+  color: white;
+  font-weight: 500;
+}
+
+.ranking-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.ranking-table tr.selected {
+  background-color: #e3f2fd;
+}
+
+/* Estilos para posiciones destacadas */
+.ranking-table tr.top-position {
+  font-weight: bold;
+}
+
+.ranking-table tr.top-position:nth-child(1) {
+  background-color: #f9d976; /* Oro */
+  border-bottom: 2px solid #f39c12;
+}
+
+.ranking-table tr.top-position:nth-child(2) {
+  background-color: #e6e6e6; /* Plata */
+  border-bottom: 2px solid #bdc3c7;
+}
+
+.ranking-table tr.top-position:nth-child(3) {
+  background-color: #dbb25f; /* Bronce */
+  border-bottom: 2px solid #cd853f;
+}
+
+/* Mensaje de carga */
+.mensaje {
+  text-align: center;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  margin: 20px 0;
+  color: #6c757d;
+}
+
+/* Spinner de carga */
+.loading-spinner {
+  margin: 20px auto;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Botón de detalles */
+.detalle-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.detalle-button:hover {
+  background-color: #2980b9;
+}
+
+/* Estilos para la sección de detalles */
+.detalle-container {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.detalle-container h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.sin-pronosticos {
+  font-style: italic;
+  color: #6c757d;
+}
+
+.pronostico-item {
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-left: 3px solid #3498db;
+}
+
+.partido-info {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+.pronostico-resultado, .pronostico-puntos {
+  font-size: 14px;
+  color: #555;
+}
+
+.pronostico-puntos {
+  margin-top: 5px;
+}
+
+/* Estilos para la información del ranking */
+.ranking-info {
+  background-color: #e3f2fd;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  font-weight: bold;
+}
+
+/* Estilos para la tabla de pronósticos (similar a ticket.component) */
+.pronosticos-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.pronosticos-table th {
+  background: #23272f;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #1976d2;
+  padding: 0.6rem 0.7rem;
+  text-align: left;
+}
+
+.pronosticos-table td {
+  color: #e3eafc;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid #353b48;
+  background: #23272f;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Estilos para los escudos en la tabla de pronósticos */
+.escudo-mini {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: #1e222b;
+  padding: 3px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.partido-cell {
+  min-width: 200px;
+}
+
+.equipo-match {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.equipo-match span {
+  margin: 0 6px;
+  color: #b3c7e6;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.equipos-nombres {
+  font-size: 0.8rem;
+  text-align: center;
+  color: #e3eafc;
+}
+
+.pronosticos-table tr:hover td {
+  background: #1976d2;
+  color: #fff;
+}
+
+.completado, .pendiente, .acertado, .errado {
+  padding: 0.3rem 0.6rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.completado, .acertado {
+  background-color: #27ae60;
+  color: white;
+}
+
+.pendiente {
+  background-color: #f39c12;
+  color: white;
+}
+
+.errado {
+  background-color: #e74c3c;
+  color: white;
+}
+
+/* Estilos para la tabla de pronósticos en el detalle */
+.pronosticos-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 2px 16px 0 #0001;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.pronosticos-table th {
+  background: #23272f;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #1976d2;
+  padding: 0.6rem 0.7rem;
+  text-align: left;
+}
+
+.pronosticos-table td {
+  color: #333;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Estilos para los escudos en la tabla de pronósticos */
+.escudo-mini {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  padding: 3px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.partido-cell {
+  min-width: 200px;
+}
+
+.equipo-match {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.equipo-match span {
+  margin: 0 6px;
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.equipos-nombres {
+  font-size: 0.8rem;
+  text-align: center;
+  color: #333;
+}
+
+.pronosticos-table tr:hover td {
+  background: #f8f9fa;
+  color: #333;
+}
+
+.completado, .pendiente, .acertado, .errado {
+  padding: 0.3rem 0.6rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.completado, .acertado {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+.pendiente {
+  background: rgba(255, 193, 7, 0.2);
+  color: #FFC107;
+}
+
+.errado {
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ranking-container {
+    padding: 10px;
+  }
+  
+  .ranking-table th, 
+  .ranking-table td {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+  
+  .detalle-container {
+    padding: 10px;
+  }
+  
+  .pronostico-item {
+    padding: 8px;
+  }
+  
+  .pronosticos-table th, 
+  .pronosticos-table td {
+    font-size: 0.8rem;
+    padding: 6px 6px;
+  }
+}

@@ -1,0 +1,219 @@
+.inicio-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  margin: 3rem auto;
+  flex-wrap: wrap;
+}
+.card {
+  background: rgba(255,255,255,0.15);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  padding: 2.5rem 2.5rem;
+  min-width: 320px;
+  max-width: 370px;
+  width: 100%;
+  margin-bottom: 2rem;
+  transition: box-shadow 0.2s;
+  animation: fadeInCard 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card:hover {
+  box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.25);
+}
+.card h2 {
+  margin-bottom: 1.5rem;
+  color: #222;
+  letter-spacing: 1px;
+}
+.card form {
+  display: flex;
+  flex-direction: column;
+}
+.card label {
+  margin-bottom: 0.3rem;
+  color: #333;
+  font-weight: 500;
+}
+.card input {
+  margin-bottom: 1.2rem;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid #e0e0e0;
+  background: rgba(255,255,255,0.5);
+  font-size: 1rem;
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.card input:focus {
+  border: 1.5px solid #1e90ff;
+  box-shadow: 0 0 0 2px #1e90ff33;
+  background: rgba(255,255,255,0.8);
+}
+.card button {
+  background: linear-gradient(90deg, #005bea 0%, #3ec6fd 100%);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 0.95rem 2.2rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 18px 0 rgba(0, 94, 234, 0.13);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  position: relative;
+  overflow: hidden;
+}
+.card button:hover {
+  background: linear-gradient(90deg, #003c8f 0%, #00b8d4 100%);
+  box-shadow: 0 8px 24px 0 rgba(0, 94, 234, 0.18);
+  transform: translateY(-2px) scale(1.03);
+}
+.card button:active {
+  transform: scale(0.97);
+}
+.card button .btn-icon {
+  font-size: 1.3rem;
+  margin-right: 0.3rem;
+  display: inline-block;
+}
+.loader {
+  border: 3px solid #e3f2fd;
+  border-top: 3px solid #1976d2;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.7rem;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.inicio-header {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+.inicio-header button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.inicio-header button.active, .inicio-header button:hover {
+  color: #fff;
+  border-bottom: 3px solid #1e90ff;
+  background: #1e90ff;
+}
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.success-message {
+  color: #1bbf5c;
+  background: rgba(27,191,92,0.08);
+  border-left: 4px solid #1bbf5c;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-weight: 600;
+  animation: fadeInCard 0.6s;
+}
+.error-message {
+  color: #e53935;
+  background: rgba(229,57,53,0.08);
+  border-left: 4px solid #e53935;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-weight: 600;
+  animation: fadeInCard 0.6s;
+  line-height: 1.4;
+  text-align: left;
+}
+.card button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  filter: grayscale(0.2);
+}
+
+/* Estilos para la tarjeta de verificación */
+.verification-card {
+  background: rgba(255,255,255,0.18);
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2.5rem;
+}
+
+.verification-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.2rem;
+  color: #1e90ff;
+}
+
+.verification-card p {
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.verification-error {
+  color: #e53935;
+  background: rgba(229,57,53,0.08);
+  border-left: 4px solid #e53935;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-weight: 500;
+  text-align: left;
+}
+
+.verification-note {
+  font-style: italic;
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.verification-button {
+  background: linear-gradient(90deg, #005bea 0%, #3ec6fd 100%);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: all 0.3s;
+}
+
+.verification-button:hover {
+  background: linear-gradient(90deg, #003c8f 0%, #00b8d4 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}

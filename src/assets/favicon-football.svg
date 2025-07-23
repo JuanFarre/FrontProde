@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Círculo de fondo -->
+  <circle cx="256" cy="256" r="240" fill="#1976d2" />
+  
+  <!-- Balón de fútbol minimalista y moderno -->
+  <circle cx="256" cy="256" r="150" fill="white" />
+  
+  <!-- Patrón de hexágonos simplificado -->
+  <path d="M256 146L316 186L296 256L216 256L196 186L256 146Z" fill="#2c2c2c" />
+  <path d="M316 186L376 216L336 286L296 256L316 186Z" fill="#2c2c2c" />
+  <path d="M296 256L336 286L276 346L216 256L296 256Z" fill="#2c2c2c" />
+  <path d="M216 256L276 346L196 286L156 216L196 186L216 256Z" fill="#2c2c2c" />
+  <path d="M196 186L156 216L196 146L256 146L196 186Z" fill="#2c2c2c" />
+  
+  <!-- Líneas sutiles para definir los bordes -->
+  <path d="M256 146L316 186M316 186L296 256M296 256L216 256M216 256L196 186M196 186L256 146M316 186L376 216M376 216L336 286M336 286L296 256M216 256L276 346M276 346L196 286M196 286L156 216M156 216L196 186" stroke="white" stroke-width="3" stroke-opacity="0.7" />
+  
+  <!-- Detalles de brillo para dar profundidad -->
+  <circle cx="226" cy="196" r="10" fill="white" opacity="0.5" />
+  <circle cx="236" cy="166" r="6" fill="white" opacity="0.3" />
+</svg>

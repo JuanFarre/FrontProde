@@ -1,0 +1,38 @@
+<div class="verification-container">
+    <div *ngIf="isLoading" class="loading-spinner"></div>
+    
+    <div *ngIf="!isLoading">
+        <!-- Success case -->
+        <div *ngIf="verificationStatus === 'success'" class="verification-content success-content">
+            <div class="verification-icon-container">
+                <span class="success-icon">✓</span>
+            </div>
+            <h2 class="verification-title">¡Verificación Exitosa!</h2>
+            <p class="verification-message">{{ message }}</p>
+            <div class="verification-actions">
+                <button class="action-button" routerLink="/inicio">Ir al inicio de sesión</button>
+            </div>
+        </div>
+        
+        <!-- Error cases -->
+        <div *ngIf="verificationStatus !== 'success'" class="verification-content error-content">
+            <div class="verification-icon-container">
+                <span class="error-icon">✗</span>
+            </div>
+            <h2 class="verification-title">
+                <ng-container [ngSwitch]="verificationStatus">
+                    <ng-container *ngSwitchCase="'expired'">Enlace Expirado</ng-container>
+                    <ng-container *ngSwitchCase="'invalid-token'">Token Inválido</ng-container>
+                    <ng-container *ngSwitchDefault>Error de Verificación</ng-container>
+                </ng-container>
+            </h2>
+            <p class="verification-message">{{ message }}</p>
+            <div class="verification-actions">
+                <button class="action-button" routerLink="/inicio">Volver al inicio</button>
+                <button *ngIf="verificationStatus === 'expired'" class="secondary-button" (click)="requestNewVerificationLink()">
+                    Solicitar nuevo enlace
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

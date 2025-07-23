@@ -1,0 +1,60 @@
+.inicio-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  margin: 3rem auto;
+  flex-wrap: wrap;
+}
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+  padding: 2rem 2.5rem;
+  min-width: 320px;
+  max-width: 370px;
+  width: 100%;
+  margin-bottom: 2rem;
+  border: 1px solid #e0e0e0;
+}
+.card h2 {
+  margin-bottom: 1.5rem;
+  color: #1976d2;
+  font-weight: 700;
+}
+.card form {
+  display: flex;
+  flex-direction: column;
+}
+.card label {
+  margin-bottom: 0.3rem;
+  color: #333;
+  font-weight: 500;
+}
+.card input {
+  margin-bottom: 1.2rem;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #bdbdbd;
+  font-size: 1rem;
+  transition: border 0.2s;
+  outline: none;
+}
+.card input:focus {
+  border: 1.5px solid #1976d2;
+  background: #f5faff;
+}
+.card button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.card button:hover {
+  background: #004ba0;
+}

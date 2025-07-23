@@ -1,0 +1,73 @@
+<mat-card class="panel-equipos">
+  <h2 mat-card-title>PANEL DE EQUIPOS</h2>
+
+  <!-- Formulario para crear equipos -->
+  <div class="crear-equipo-form">
+    <button mat-raised-button class="btn-primary" (click)="mostrarFormularioCrear = !mostrarFormularioCrear">
+      {{ mostrarFormularioCrear ? 'Cancelar' : 'Crear nuevo equipo' }}
+    </button>
+    
+    <div *ngIf="mostrarFormularioCrear" class="formulario-container">
+      <h3>Nuevo equipo</h3>
+      <form [formGroup]="equipoForm" (ngSubmit)="crearEquipo()">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" placeholder="Nombre del equipo">
+          <mat-error *ngIf="equipoForm.controls['nombre'].hasError('required')">
+            El nombre es obligatorio
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ciudad</mat-label>
+          <input matInput formControlName="ciudad" placeholder="Ciudad del equipo">
+          <mat-error *ngIf="equipoForm.controls['ciudad'].hasError('required')">
+            La ciudad es obligatoria
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>URL del escudo</mat-label>
+          <input matInput formControlName="escudoUrl" placeholder="URL de la imagen del escudo">
+        </mat-form-field>
+        
+        <div class="escudo-preview" *ngIf="equipoForm.get('escudoUrl')?.value">
+          <h4>Vista previa:</h4>
+          <img [src]="equipoForm.get('escudoUrl')?.value" 
+               alt="Vista previa del escudo" 
+               class="escudo-preview-img"
+               onerror="this.src='assets/img/escudo-default.svg'; this.onerror=null;">
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button class="btn-primary" type="submit" [disabled]="equipoForm.invalid">
+            Crear equipo
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  <h3>Lista de equipos</h3>
+  <mat-list>
+<mat-list-item *ngFor="let equipo of equipos">
+  <div class="item-row">
+    <div class="equipo-info">
+      <img class="escudo-img" [src]="equipo.escudoUrl || 'assets/img/escudo-default.svg'" 
+           alt="Escudo de {{ equipo.nombre }}" 
+           onerror="this.src='assets/img/escudo-default.svg'; this.onerror=null;">
+      <span class="equipo-nombre">{{ equipo.nombre }} ({{ equipo.ciudad }})</span>
+    </div>
+    <div class="acciones">
+      <button mat-button class="btn-edit" (click)="abrirDialogoEditar(equipo)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-button class="btn-delete" (click)="abrirDialogoEliminar(equipo)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-list-item>
+  </mat-list>
+</mat-card>
