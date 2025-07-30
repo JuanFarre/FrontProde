@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://your-production-api-url/api'
+  apiUrl: 'https://harmonious-healing-production.up.railway.app/api'
 };

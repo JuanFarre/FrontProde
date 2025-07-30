@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Fecha } from '../models/fecha';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FechaService {
-  private apiUrl = 'http://localhost:8080/api/fechas';
+  private apiUrl = `${environment.apiUrl}/fechas`;
 
   constructor(private http: HttpClient) {}
 

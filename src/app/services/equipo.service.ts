@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Equipo } from '../models/equipo'; // Asegúrate de que la ruta sea correcta
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class EquipoService {
-  private baseUrl = 'http://localhost:8080/api/equipos'; // Asegúrate que esta URL sea correcta
+  private baseUrl = `${environment.apiUrl}/equipos`; // Asegúrate que esta URL sea correcta
 
   constructor(private http: HttpClient) {}
 

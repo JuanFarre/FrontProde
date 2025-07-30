@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface AuthRequestDto {
   nombre: string;
@@ -36,9 +37,9 @@ interface DecodedToken {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth/registrar';
-  private loginUrl = 'http://localhost:8080/api/auth/login';
-  private verifyEmailUrl = 'http://localhost:8080/api/auth/verifyEmail';
+  private apiUrl = `${environment.apiUrl}/auth/registrar`;
+  private loginUrl = `${environment.apiUrl}/auth/login`;
+  private verifyEmailUrl = `${environment.apiUrl}/auth/verifyEmail`;
   private readonly TOKEN_KEY = 'token';
   
   // Subject para emitir cambios en el estado de autenticación
@@ -131,7 +132,9 @@ export class AuthService {
 
   // Método para redirigir a la página de verificación con el estado adecuado
   redirectToVerification(status: string): void {
-    window.location.href = `http://localhost:4200/verification?status=${status}`;
+    // Usar la URL actual del navegador para mantener el dominio correcto
+    const baseUrl = window.location.origin;
+    window.location.href = `${baseUrl}/verification?status=${status}`;
   }
 
   // Decodifica el token JWT sin dependencias externas

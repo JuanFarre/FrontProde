@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Pronostico } from '../models/pronostico';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PronosticoService {
-  private apiUrl = 'http://localhost:8080/api/pronosticos'; // Ajusta la URL base según tu backend
+  private apiUrl = `${environment.apiUrl}/pronosticos`; // Ajusta la URL base según tu backend
 
   constructor(private http: HttpClient) {}
 

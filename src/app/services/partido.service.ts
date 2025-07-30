@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Partido } from '../models/partido';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PartidoService {
-  private apiUrl = 'http://localhost:8080/api/partidos'; // Ajusta la URL según tu backend
+  private apiUrl = `${environment.apiUrl}/partidos`; // Ajusta la URL según tu backend
 
   constructor(private http: HttpClient) {}
 
