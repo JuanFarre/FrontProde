@@ -29,6 +29,11 @@
   color: #222;
   letter-spacing: 1px;
 }
+.card p {
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
 .card form {
   display: flex;
   flex-direction: column;
@@ -176,7 +181,7 @@
 }
 
 .verification-card p {
-  color: #444;
+  color: #fff;
   line-height: 1.5;
   margin-bottom: 1rem;
 }
@@ -194,7 +199,7 @@
 
 .verification-note {
   font-style: italic;
-  color: #666;
+  color: #fff;
   font-size: 0.9rem;
   margin-top: 1.5rem;
 }
