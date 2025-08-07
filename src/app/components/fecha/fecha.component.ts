@@ -96,7 +96,11 @@ export class FechaComponent implements OnInit {
     width: '350px',
     data: {
       titulo: 'Fecha',
-      entidad: { ...fecha, torneo: torneoSeleccionado },
+      entidad: { 
+        ...fecha, 
+        torneo: torneoSeleccionado,
+        empezada: fecha.empezada || false  // Asegurar el valor del checkbox
+      },
       campos: [
         { nombre: 'nombre', label: 'Nombre', validadores: [Validators.required] },
         { nombre: 'torneo', label: 'Torneo', tipo: 'select', opciones: this.torneos, validadores: [Validators.required] },

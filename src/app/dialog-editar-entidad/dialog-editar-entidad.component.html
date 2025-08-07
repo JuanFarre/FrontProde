@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <form [formGroup]="entidadForm">
     <ng-container *ngFor="let campo of data.campos">
-      <ng-container *ngIf="campo.tipo === 'select'; else inputField">
+      <ng-container *ngIf="campo.tipo === 'select'; else checkOtherTypes">
         <mat-form-field appearance="outline" style="width:100%;">
           <mat-label>{{ campo.label }}</mat-label>
           <mat-select [formControlName]="campo.nombre">
@@ -15,11 +15,18 @@
           </mat-select>
         </mat-form-field>
       </ng-container>
-      <ng-template #inputField>
-        <mat-form-field appearance="outline" style="width:100%;">
-          <mat-label>{{ campo.label }}</mat-label>
-          <input matInput [formControlName]="campo.nombre" [type]="campo.tipo || 'text'" />
-        </mat-form-field>
+      <ng-template #checkOtherTypes>
+        <ng-container *ngIf="campo.tipo === 'checkbox'; else inputField">
+          <mat-checkbox [formControlName]="campo.nombre" style="width:100%; margin: 16px 0;">
+            {{ campo.label }}
+          </mat-checkbox>
+        </ng-container>
+        <ng-template #inputField>
+          <mat-form-field appearance="outline" style="width:100%;">
+            <mat-label>{{ campo.label }}</mat-label>
+            <input matInput [formControlName]="campo.nombre" [type]="campo.tipo || 'text'" />
+          </mat-form-field>
+        </ng-template>
       </ng-template>
     </ng-container>
   </form>

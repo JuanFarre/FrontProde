@@ -96,6 +96,10 @@ export class TicketService {
       })
     );
   }
+
+  verificarTicketExistente(usuarioId: number, fechaId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/verificar-ticket/${usuarioId}/${fechaId}`);
+  }
   
   // Método para invalidar la caché manualmente
   invalidateCache(): void {

@@ -31,6 +31,7 @@ export class PronosticoComponent implements OnInit {
   mensaje: string = '';
   pronosticosPorPartido: { [partidoId: number]: string } = {};
   fechaActual: string = '16'; // Cambia el número según la fecha que corresponda
+  yaHizoTicket: boolean = false;
 
   constructor(
     private pronosticoService: PronosticoService,
@@ -78,6 +79,9 @@ export class PronosticoComponent implements OnInit {
     this.partidoService.getPartidos().subscribe(partidos => {
       this.partidos = partidos.filter(p => p.fechaId === fechaId);
       
+      // Verificar si ya existe un ticket para esta fecha
+      this.verificarTicketExistente(fechaId);
+      
       // Inicializar pronósticos si hay partidos y la fecha no ha empezado
       if (this.partidos.length > 0 && this.puedeHacerPronosticos(fechaId)) {
         this.partidos.forEach(p => {
@@ -98,6 +102,20 @@ export class PronosticoComponent implements OnInit {
   // Método alternativo sin acentos para el template
   fechaYaEmpeze(fechaId: number): boolean {
     return this.fechaYaEmpezó(fechaId);
+  }
+
+  verificarTicketExistente(fechaId: number) {
+    const usuarioId = this.authService.getUserId();
+    if (!usuarioId) return;
+
+    this.ticketService.verificarTicketExistente(usuarioId, fechaId).subscribe({
+      next: (existe: boolean) => {
+        this.yaHizoTicket = existe;
+      },
+      error: () => {
+        this.yaHizoTicket = false;
+      }
+    });
   }
 
   // Verificar si se pueden hacer pronósticos para una fecha
@@ -220,7 +238,15 @@ export class PronosticoComponent implements OnInit {
     this.ticketService.crearTicket(ticket).subscribe({
       next: () => {
         this.showMessage('¡Ticket enviado correctamente! Buena suerte con tus pronósticos.');
-        // Opcional: limpiar pronósticosPorPartido
+        
+        // Limpiar pronósticos y actualizar estado
+        this.pronosticosPorPartido = {};
+        this.yaHizoTicket = true;
+        
+        // Reinicializar pronósticos vacíos
+        this.partidos.forEach(p => {
+          this.pronosticosPorPartido[p.id!] = '';
+        });
       },
       error: (err) => {
         this.showMessage('Error al enviar el ticket. Por favor intenta nuevamente.');
@@ -294,6 +320,7 @@ export class PronosticoComponent implements OnInit {
 
   onFechaChange(fechaId: number) {
     this.fechaSeleccionadaId = fechaId;
+    this.yaHizoTicket = false; // Reset del estado al cambiar fecha
     this.cargarPartidosPorFecha(fechaId);
   }
 

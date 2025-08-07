@@ -24,6 +24,14 @@
       {{ getMensajeFecha(fechaSeleccionadaId) }}
     </div>
 
+    <!-- Mensaje de ticket existente -->
+    <div *ngIf="yaHizoTicket && fechaSeleccionadaId && puedeHacerPronosticos(fechaSeleccionadaId)" 
+         class="mensaje-ticket-existente"
+         style="margin-top: 12px; padding: 12px; border-radius: 6px; background-color: #fef3c7; border: 1px solid #f59e0b; color: #92400e; font-size: 14px; font-weight: 500;">
+      <mat-icon style="vertical-align: middle; margin-right: 8px; color: #f59e0b;">info</mat-icon>
+      Ya hiciste tus pronósticos para esta fecha. ¿Deseas realizar otro ticket?
+    </div>
+
     <table class="prode-table" *ngIf="partidos && partidos.length > 0" 
            [class.fecha-empezada]="fechaSeleccionadaId && fechaYaEmpeze(fechaSeleccionadaId)">
       <thead>
