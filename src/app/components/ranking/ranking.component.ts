@@ -96,7 +96,7 @@ export class RankingComponent implements OnInit, OnDestroy {
     this.cargando = true;
     this.rankingService.getRankingGeneral().subscribe({
       next: (ranking) => {
-        this.rankingGeneral = this.limpiarDatosRanking(ranking);
+        this.rankingGeneral = ranking; // Ya no necesitamos limpiar los datos aquí
         this.cargando = false;
         this.mostrarRankingGeneral = true;
         if (ranking.length === 0) {
@@ -104,11 +104,6 @@ export class RankingComponent implements OnInit, OnDestroy {
         } else {
           this.mensaje = '';
         }
-        
-        // Actualizar nombres después de un breve retraso para permitir que se carguen los usuarios
-        setTimeout(() => {
-          this.actualizarNombresUsuario();
-        }, 2000);
       },
       error: (error) => {
         this.mensaje = 'Error al cargar el ranking general';
@@ -131,7 +126,7 @@ export class RankingComponent implements OnInit, OnDestroy {
     this.cargando = true;
     this.rankingService.getRankingPorFecha(this.fechaSeleccionada).subscribe({
       next: (ranking) => {
-        this.rankingPorFecha = this.limpiarDatosRanking(ranking);
+        this.rankingPorFecha = ranking; // Ya no necesitamos limpiar los datos aquí
         this.cargando = false;
         this.mostrarRankingGeneral = false;
         if (ranking.length === 0) {
@@ -139,11 +134,6 @@ export class RankingComponent implements OnInit, OnDestroy {
         } else {
           this.mensaje = '';
         }
-        
-        // Actualizar nombres después de un breve retraso para permitir que se carguen los usuarios
-        setTimeout(() => {
-          this.actualizarNombresUsuario();
-        }, 2000);
       },
       error: (error) => {
         this.mensaje = 'Error al cargar el ranking por fecha';
@@ -152,49 +142,6 @@ export class RankingComponent implements OnInit, OnDestroy {
     });
   }
   
-  // Método para limpiar y formatear datos del ranking
-  limpiarDatosRanking(ranking: RankingItem[]): RankingItem[] {
-    return ranking.map(item => ({
-      ...item,
-      username: this.formatearNombreUsuario(item.username, item.usuarioId)
-    }));
-  }
-  
-  // Método para formatear nombres de usuario
-  formatearNombreUsuario(username: string, usuarioId?: number): string {
-    // Si no hay username, usar ID como fallback
-    if (!username || username.trim() === '') {
-      return usuarioId ? `Usuario ${usuarioId}` : 'Usuario';
-    }
-    
-    // Si el username parece una contraseña hasheada (texto muy largo y sin espacios)
-    if (username.length > 100 && !username.includes(' ')) {
-      return usuarioId ? `Usuario ${usuarioId}` : 'Usuario';
-    }
-    
-    // Si es el formato "Usuario ID", intentar obtener el nombre real
-    if (username.startsWith('Usuario ') && usuarioId) {
-      // Intentar cargar el usuario para obtener su nombre real
-      this.usuarioService.getUsuarioById(usuarioId).subscribe({
-        next: (usuario) => {
-          // El usuario se guardará en caché automáticamente
-        },
-        error: () => {
-          // Si falla, mantenemos el formato Usuario ID
-        }
-      });
-      
-      // Verificar si ya tenemos el nombre en caché
-      const nombreCached = this.usuarioService.getUsernameCached(usuarioId);
-      if (nombreCached && nombreCached !== username && !nombreCached.startsWith('Usuario ')) {
-        return nombreCached;
-      }
-    }
-    
-    // En todos los demás casos, preservar el nombre de usuario tal como viene
-    return username;
-  }
-
   cambiarVistaRanking(esGeneral: boolean): void {
     this.mostrarRankingGeneral = esGeneral;
     this.itemExpandido = null;
@@ -203,25 +150,6 @@ export class RankingComponent implements OnInit, OnDestroy {
       this.cargarRankingGeneral();
     } else if (this.fechaSeleccionada) {
       this.cargarRankingPorFecha();
-    }
-  }
-
-  // Método para actualizar nombres de usuario cuando se cargan nuevos datos
-  private actualizarNombresUsuario(): void {
-    // Actualizar ranking general si existe
-    if (this.rankingGeneral.length > 0) {
-      this.rankingGeneral = this.rankingGeneral.map(item => ({
-        ...item,
-        username: this.formatearNombreUsuario(item.username, item.usuarioId)
-      }));
-    }
-
-    // Actualizar ranking por fecha si existe
-    if (this.rankingPorFecha.length > 0) {
-      this.rankingPorFecha = this.rankingPorFecha.map(item => ({
-        ...item,
-        username: this.formatearNombreUsuario(item.username, item.usuarioId)
-      }));
     }
   }
 

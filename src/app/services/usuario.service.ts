@@ -23,8 +23,22 @@ export class UsuarioService {
   private falloAutorizacion = false;
 
   constructor(private http: HttpClient) {
-    // Cargar usuarios al iniciar el servicio
-    this.cargarTodosLosUsuarios();
+    // NO cargar usuarios automáticamente en el constructor para evitar problemas de timing con el token
+    // this.cargarTodosLosUsuarios();
+  }
+
+  // Método helper para cargar usuarios solo cuando sea necesario
+  private cargarUsuariosSiEsNecesario(): void {
+    if (!this.usuariosCargados && !this.cargandoUsuarios && !this.falloAutorizacion) {
+      // Verificar que haya un token disponible antes de intentar cargar
+      const token = localStorage.getItem('token');
+      if (token) {
+        console.log('Cargando usuarios bajo demanda...');
+        this.cargarTodosLosUsuarios();
+      } else {
+        console.log('No hay token disponible, no se cargan usuarios');
+      }
+    }
   }
 
   getUsuarios(): Observable<Usuario[]> {
@@ -67,6 +81,9 @@ export class UsuarioService {
   }
 
   getUsuarioById(id: number): Observable<Usuario> {
+    // Cargar usuarios si es necesario (bajo demanda)
+    this.cargarUsuariosSiEsNecesario();
+    
     // Primero verificamos si tenemos el usuario en caché
     if (this.usuariosCache.has(id)) {
       return of(this.usuariosCache.get(id)!);
